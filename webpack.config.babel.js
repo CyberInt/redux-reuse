@@ -10,14 +10,12 @@ const exclude = [/node_modules/];
 const config = {
   context: srcPath,
 
-  entry: {
-    reduxReuse: ['reduxReuse'],
-  },
+  entry: { reduxReuse: 'reduxReuse' },
 
   output: {
     path: distPath,
-    filename: `[name]${minified}.js`,
-    library: ['reduxReuse', '[name]'],
+    filename: `reduxReuse${minified}.js`,
+    library: 'reduxReuse',
     libraryTarget: 'umd',
   },
 
@@ -44,15 +42,4 @@ const config = {
   },
 };
 
-module.exports = [
-  config,
-  {
-    ...config,
-    entry: { reduxReuse: 'reduxReuse' },
-    output: {
-      ...config.output,
-      filename: `reduxReuse${minified}.js`,
-      library: 'reduxReuse',
-    },
-  }
-];
+module.exports = config;
