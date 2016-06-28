@@ -2,7 +2,7 @@
   "name": "redux-reuse",
   "version": "0.1.1",
   "description": "Reuse redux reducers",
-  "main": "lib/reduxReuse.js",
+  "main": "src/reduxReuse.js",
   "scripts": {
     "build": "npm run build:commonjs; npm run build:es6; npm run build:umd",
     "build:commonjs": "babel src --out-dir lib",
@@ -15,7 +15,10 @@
     "type": "git",
     "url": "git+https://github.com/CyberInt/redux-reuse.git"
   },
-  "author": "",
+  "authors": [
+    "Max Foo <maxf@cyberint.com> (https://github.com/xamfoo)",
+    "Konstantin Belenkiy <belkosyak@gmail.com> (https://github.com/belkosyak)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CyberInt/redux-reuse/issues"
