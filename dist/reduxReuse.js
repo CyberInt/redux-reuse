@@ -65,11 +65,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'extendReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _interopRequireDefault(_extendReducer).default;
+	    return _extendReducer.extendReducer;
 	  }
 	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
 /* 1 */
@@ -86,26 +84,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {object} handlers - handler object like used in createReducer()
 	 * @returns {function} returns a reducer
 	 */
-	var extendReducer = function extendReducer(reducer, handlers) {
+	var extendReducer = exports.extendReducer = function extendReducer(reducer, handlers) {
 	  return function (state, action) {
 	    var stateForReducer = handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state;
 
 	    return reducer(stateForReducer, action);
 	  };
 	};
-
-	exports.default = extendReducer;
-
-/***/ }
-/******/ ])
-});
-;ction.type) ? handlers[action.type](state, action) : state;
-
-	    return reducer(stateForReducer, action);
-	  };
-	};
-
-	exports.default = extendReducer;
 
 /***/ }
 /******/ ])
