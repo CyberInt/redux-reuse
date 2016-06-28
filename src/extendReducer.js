@@ -4,12 +4,10 @@
  * @param {object} handlers - handler object like used in createReducer()
  * @returns {function} returns a reducer
  */
-const extendReducer = (reducer, handlers) => (state, action) => {
+export const extendReducer = (reducer, handlers) => (state, action) => {
   const stateForReducer = handlers.hasOwnProperty(action.type)
     ? handlers[action.type](state, action)
     : state;
 
   return reducer(stateForReducer, action);
 };
-
-export default extendReducer;

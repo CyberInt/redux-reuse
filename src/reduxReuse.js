@@ -1,1 +1,1 @@
-export { default as extendReducer } from './extendReducer';
+export { extendReducer as extendReducer } from './extendReducer';
