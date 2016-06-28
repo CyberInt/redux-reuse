@@ -11,7 +11,6 @@ const config = {
   context: srcPath,
 
   entry: {
-    extendReducer: ['extendReducer'],
     reduxReuse: ['reduxReuse'],
   },
 
