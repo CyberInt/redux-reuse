@@ -38,9 +38,70 @@ Use the Universal Module Definition (UMD)
 - [reduxReuse.js](dist/reduxReuse.js)
 - [reduxReuse.min.js](dist/reduxReuse.min.js) (minified)
 
+## API
 
+### Second-order Reducers
 
-## List of extenders
+#### `extendReducer()`
+
+```js
+extendReducer(
+  reducer,
+  handlers: [handlerName: string] => Function
+): reducer
+```
+
+Extends a reducer with additional action handlers.
+
+#### `initialReducer()`
+
+```js
+initialReducer(initialState: any): reducer
+```
+
+Creates a reducer which returns an initial state.
+
+### Third-order Reducers
+
+#### `withActionFilterReducer()`
+
+```js
+withActionFilterReducer(
+  predicate: (action: Object) => Boolean
+): (reducer) => reducer
+```
+
+Creates a second-order reducer which tests actions with a predicate (to evaluate to true) before passing to the given reducer.
+
+#### `withMapStateReducer()`
+
+```js
+withMapStateReducer(
+  mapStateBefore: (stateBefore: any) => newStateBefore,
+  mapStateAfter: (stateAfter: any) => newStateAfter,
+  actionTypes: Array<string>
+): (reducer) => reducer
+```
+
+Creates a second-order reducer which maps state before and after passing to a reducer.
+
+#### `withPayloadReducer()`
+
+```js
+withPayloadReducer(actionType: String): (reducer) => reducer
+```
+
+Creates a second-order reducer which returns the payload of the action for the given action type.
+
+### Helper Reducers
+
+#### `nullReducer`
+
+```js
+nullReducer: reducer
+```
+
+A reducer which returns `null` as the initial state.
 
 ## Examples of extender code
 ## Examples of how to use extenders in reducers
