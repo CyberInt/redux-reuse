@@ -4,6 +4,7 @@
   "description": "Reuse code in redux reducers",
   "main": "lib/reduxReuse.js",
   "scripts": {
+    "prepublish": "npm run build",
     "build": "npm run build:commonjs; npm run build:es6; npm run build:umd",
     "build:commonjs": "babel src --out-dir lib",
     "build:es6": "NODE_ENV=es6 babel src --out-dir es6",
