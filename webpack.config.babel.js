@@ -42,4 +42,9 @@ const config = {
   },
 };
 
+if (env === 'test') {
+  config.resolve.root.push(__dirname);
+  config.devtool = '#inline-source-map';
+}
+
 module.exports = config;
