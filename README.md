@@ -47,7 +47,9 @@ Use the Universal Module Definition (UMD)
 ```js
 extendReducer(
   reducer,
-  handlers: [handlerName: string] => Function
+  handlers: {
+    [handlerName: string] => reducer
+  }
 ): reducer
 ```
 
