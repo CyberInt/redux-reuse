@@ -73,7 +73,25 @@ withActionFilterReducer(
 ): (reducer) => reducer
 ```
 
-Creates a second-order reducer which tests actions with a predicate (to evaluate to true) before passing to the given reducer.
+Creates a second-order reducer which tests actions with a predicate (to evaluate to true) before passing to the given reducer. This is useful for filtering actions based on fields other than the action type.
+
+##### Example
+
+reducers/tabs.js
+
+```js
+import tab from 'reducers/tab';
+import { HOME_TAB, ACCOUNT_TAB } from 'constants/tabs';
+
+const filteredTab = (tabName) => withActionFilterReducer(
+  (action) => action.meta.tab === tabName
+)(tab);
+
+export default combineReducers({
+  home: filteredTab(HOME_TAB),
+  account: filteredTab(ACCOUNT_TAB)
+});
+```
 
 #### `withMapStateReducer()`
 
