@@ -1,6 +1,6 @@
 {
   "name": "redux-reuse",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Reuse code in redux reducers",
   "main": "lib/reduxReuse.js",
   "scripts": {
