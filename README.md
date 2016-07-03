@@ -1,7 +1,5 @@
 # redux-reuse
 
-## This project in phase of active development, so something described below can not be available in the moment
-
 redux-reuse is a [Redux](https://github.com/reactjs/redux "Redux")-related project,
 which includes `extendReducer()` helper function, which helps to make your reducers
 code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "DRY"), based on approach
