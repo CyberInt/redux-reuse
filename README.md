@@ -128,7 +128,7 @@ import listReducer from 'listReducer';
 
 const objectReducer = withMapStateReducer(
   (obj) => [obj],
-  (array) => array[0]
+  (list) => list[0]
 )(listReducer);
 ```
 
