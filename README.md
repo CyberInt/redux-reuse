@@ -2,24 +2,31 @@
 
 ## This project in phase of active development, so something described below can not be available in the moment
 
-redux-reuse is a [Redux](https://github.com/reactjs/redux "Redux")-related project, which includes `extendReducer()` helper function, which helps make your reducers code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "DRY"), based on approach of high-level reducers, as well as set of common reducer *extenders*, ready to use in your Redux application.
+redux-reuse is a [Redux](https://github.com/reactjs/redux "Redux")-related project,
+which includes `extendReducer()` helper function, which helps to make your reducers
+code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "DRY"), based on approach
+of composable higher-order reducers. Also this package contains a set of common higher-order reducers,
+ready to use in your Redux application.
 
-It is very common situation when different reducers should react in same way on same action, one of the solution to achieve code reuse in such a case is organise common logic in high-level reducer, but it will lead us to deeper state tree.
-Actually we just want that our reducers will apply common logic on existent state subtree, which they manage and thats all. Here `extendReducer()` helper comes into play.
+It is very common situation when different reducers should react in same way on same action,
+one of the solution to achieve code reuse in such a case is organise common logic in higher-order
+reducer, but it will lead us to deeper state tree. Actually we just want that our reducers will
+apply common logic on existent state subtree, which they manage, and thats it.
+Here `extendReducer()` helper comes into play.
 
-Using `extendReducer()` it is pretty simple to write composable extenders for your Redux application, in fact most of reducers can be presented as composition of common extenders.
+Using `extendReducer()` it is pretty simple to write composable higher-order reducers
+for your Redux application, in fact most of reducers can be presented as composition of common extenders.
 
 ## Usage
 
-### Node
-
-Install
+### Install via NPM
 
 ```
 npm install redux-reuse --save
 ```
 
-Import
+### Import
+
 ```javascript
 import { extendReducer } from 'redux-reuse'; 
 // or
@@ -31,7 +38,7 @@ Or import ES2015 modules
 import { extendReducer } from 'redux-reuse/es6';
 ```
 
-### Browser and other environments
+### Other environments
 
 Use the Universal Module Definition (UMD)
 
@@ -40,7 +47,7 @@ Use the Universal Module Definition (UMD)
 
 ## API
 
-### Second-order Reducers
+### Higher-order helper Reducers
 
 #### `extendReducer()`
 
@@ -61,9 +68,9 @@ Extends a reducer with additional action handlers.
 initialReducer(initialState: any): reducer
 ```
 
-Creates a reducer which returns an initial state.
+Creates a reducer with passed value as initial state.
 
-### Third-order Reducers
+### Higher-order ready-to-use Reducers
 
 #### `withActionFilterReducer()`
 
@@ -73,23 +80,28 @@ withActionFilterReducer(
 ): (reducer) => reducer
 ```
 
-Creates a second-order reducer which tests actions with a predicate (to evaluate to true) before passing to the given reducer. This is useful for filtering actions based on fields other than the action type.
+Creates a higher-order reducer which tests actions with a predicate before
+passing to the given reducer. Where predicate is a function which is called
+with action as argument and should return truthy value in order to indicate
+that action should be passed to reducer. This is useful for filtering actions
+based on fields other than the action type.
 
 ##### Example
 
-reducers/tabs.js
+Lets say you have two types of tabs somewhere in your app, and you want to
+specify in action, which tab should react on thi action.
 
 ```js
 import tab from 'reducers/tab';
-import { HOME_TAB, ACCOUNT_TAB } from 'constants/tabs';
+import { DASHBOARD_TAB, ANOTHER_DASHBOARD_TAB } from 'constants/tabs';
 
 const filteredTab = (tabName) => withActionFilterReducer(
   (action) => action.meta.tab === tabName
 )(tab);
 
 export default combineReducers({
-  home: filteredTab(HOME_TAB),
-  account: filteredTab(ACCOUNT_TAB)
+  dashboardTab: filteredTab(DASHBOARD_TAB),
+  anotherDashboardTab: filteredTab(ANOTHER_DASHBOARD_TAB)
 });
 ```
 
@@ -103,7 +115,24 @@ withMapStateReducer(
 ): (reducer) => reducer
 ```
 
-Creates a second-order reducer which maps state before and after passing to a reducer.
+Creates a second-order reducer which maps state before and after passing
+to a reducer, but does it only for passed action types.
+
+Useful when you want reuse your reducer on state, which has another format.
+
+##### Example
+
+Lets say we have reducer which handles list of objects, but we want to use
+it on subtree, which is only one object.
+
+```js
+import listReducer from 'listReducer';
+
+const objectReducer = withMapStateReducer(
+  (obj) => [obj],
+  (array) => array[0]
+)(listReducer);
+```
 
 #### `withPayloadReducer()`
 
@@ -111,7 +140,8 @@ Creates a second-order reducer which maps state before and after passing to a re
 withPayloadReducer(actionType: String): (reducer) => reducer
 ```
 
-Creates a second-order reducer which returns the payload of the action for the given action type.
+Creates a second-order reducer which returns the payload of the action
+for the given action type.
 
 ### Helper Reducers
 
@@ -123,5 +153,21 @@ nullReducer: reducer
 
 A reducer which returns `null` as the initial state.
 
-## Examples of extender code
-## Examples of how to use extenders in reducers
+## Examples of higher-order reducers
+
+Please take a look at code of ready-to-use higher-order reducers.
+
+## Example of how to compose higher-order reducers
+
+```js
+// You can import compose() function from any package, which provide it,
+// for example from https://github.com/acdlite/recompose
+import { compose } from 'wherever';
+import { nullReducer, withPayloadReducer, withResetReducer } from 'redux-reuse';
+
+const reducer = compose(
+  withPayloadReducer(LOAD_ACTION),
+  withResetReducer(RESET_STATE_ACTION)
+)(nullReducer);
+
+```

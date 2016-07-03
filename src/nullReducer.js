@@ -1,6 +1,6 @@
 import { initialReducer } from './initialReducer';
 
 /**
- * A reducer which returns null as the initial state
+ * A reducer with null as initial state
  */
 export const nullReducer = initialReducer(null);

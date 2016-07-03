@@ -3,7 +3,7 @@ import { nullReducer } from './nullReducer';
 
 /**
  * Creates a reducer wrapper which return the payload of the action for the
- * given action type
+ * given action type.
  * @param {string} actionType
  * @returns {function} a function of signature (reducer) => newReducer
  */

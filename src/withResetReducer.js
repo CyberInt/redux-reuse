@@ -4,7 +4,7 @@ import { nullReducer } from './nullReducer';
 /**
  * These are private action types reserved by redux-reuse.
  *
- * From redux:
+ * From Redux:
  * For any unknown actions, you must return the current state.
  * If the current state is undefined, you must return the initial state.
  * Do not reference these action types directly in your code.
@@ -15,7 +15,7 @@ export const actionTypes = {
 
 /**
  * Creates a reducer wrapper which resets the state for the given action type(s)
- * @param {...string} actionTypes
+ * @param {string[]} actionTypes
  * @returns {function} a function of signature (reducer) => newReducer
  */
 export const withResetReducer = (...actionTypes) => (reducer = nullReducer) =>

@@ -1,7 +1,7 @@
 /**
- * Creates a reducer which returns an initial state
+ * Creates a reducer with passed value as initial state
  * @param {*} initialState
- * @returns {function} returns a reducer
+ * @returns {function} Reducer function
  */
 export const initialReducer = (initialState) =>
   (state) => typeof state === 'undefined' ? initialState : state;
