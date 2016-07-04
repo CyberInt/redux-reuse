@@ -159,7 +159,7 @@ Please take a look at code of ready-to-use higher-order reducers.
 
 ```js
 // You can import compose() function from any package, which provides it,
-// for example from https://github.com/acdlite/recompose
+// for example from https://github.com/acdlite/recompose or Redux itself,
 // or flow()/flowRight() from lodash
 import { compose } from 'wherever';
 import { nullReducer, withPayloadReducer, withResetReducer } from 'redux-reuse';
