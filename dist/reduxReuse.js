@@ -135,12 +135,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Extends an existing reducer with additional action type handlers
 	 * @param {function} reducer - a reducer function
-	 * @param {object} handlers
-	 *   handler object
-	 *     where key is the action type to be handled
-	 *           value is a reducer function with signature:
-	 *             (state, action) => newState
-	 * @returns {function} returns a reducer
+	 * @param {object} handlers - object, where keys are action types
+	 *   to be handled and values is a reducer function with signature:
+	 *     (state, action) => newState
+	 * @returns {function} Reducer function
 	 */
 	var extendReducer = exports.extendReducer = function extendReducer(reducer, handlers) {
 	  return function (state, action) {
@@ -160,9 +158,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	/**
-	 * Creates a reducer which returns an initial state
+	 * Creates a reducer with passed value as initial state
 	 * @param {*} initialState
-	 * @returns {function} returns a reducer
+	 * @returns {function} Reducer function
 	 */
 	var initialReducer = exports.initialReducer = function initialReducer(initialState) {
 	  return function (state) {
@@ -184,7 +182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _initialReducer = __webpack_require__(2);
 
 	/**
-	 * A reducer which returns null as the initial state
+	 * A reducer with null as initial state
 	 */
 	var nullReducer = exports.nullReducer = (0, _initialReducer.initialReducer)(null);
 
@@ -202,9 +200,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _nullReducer = __webpack_require__(3);
 
 	/**
-	 * Creates a reducer wrapper which tests actions with a predicate(to evaluate
-	 * to true) before passing to the reducer
-	 * @param {function} predicate
+	 * Creates a reducer wrapper which tests actions with a predicate before
+	 * passing to the reducer.
+	 * @param {function} predicate - function which is called with action as
+	 *   argument and should return truthy value in order to indicate that
+	 *   action should be passed to reducer.
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
 	var withActionFilterReducer = exports.withActionFilterReducer = function withActionFilterReducer(predicate) {
@@ -245,17 +245,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Creates a reducer wrapper which maps state before and after passing to a
-	 * reducer
+	 * reducer, but does it only for passed action types.
 	 * @param {function} [mapStateBefore=identity]
-	 *   A function with signature: (stateBefore) => newStateBefore
-	 *     where stateBefore is the original state
-	 *           newStateBefore is passed to the reducer
+	 *   A function with signature: (stateBefore) => newStateBefore, where
+	 *   stateBefore is the original state, newStateBefore is passed to the reducer.
 	 * @param {function} [mapStateAfter=identity]
-	 *   A function with signature: (stateAfter) => newStateAfter
-	 *     where stateAfter is returned by the reducer
-	 *           newStateAfter is returned to the store
+	 *   A function with signature: (stateAfter) => newStateAfter, where
+	 *   stateAfter is returned by the reducer, newStateAfter is returned to the store.
 	 * @param {[string]} [actionTypes]
-	 *   Action types to perform map state. Handles all actions by default.
+	 *   Action types to perform map state. Handles all actions if not provided.
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
 	var withMapStateReducer = exports.withMapStateReducer = function withMapStateReducer() {
@@ -325,7 +323,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Creates a reducer wrapper which return the payload of the action for the
-	 * given action type
+	 * given action type.
 	 * @param {string} actionType
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
@@ -363,7 +361,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * These are private action types reserved by redux-reuse.
 	 *
-	 * From redux:
+	 * From Redux:
 	 * For any unknown actions, you must return the current state.
 	 * If the current state is undefined, you must return the initial state.
 	 * Do not reference these action types directly in your code.
@@ -374,7 +372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Creates a reducer wrapper which resets the state for the given action type(s)
-	 * @param {...string} actionTypes
+	 * @param {string[]} actionTypes
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
 	var withResetReducer = exports.withResetReducer = function withResetReducer() {

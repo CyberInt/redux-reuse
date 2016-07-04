@@ -87,7 +87,7 @@ based on fields other than the action type.
 ##### Example
 
 Lets say you have two types of tabs somewhere in your app, and you want to
-specify in action, which tab should react on thi action.
+specify in action, which tab should react on this action.
 
 ```js
 import tab from 'reducers/tab';
@@ -158,8 +158,9 @@ Please take a look at code of ready-to-use higher-order reducers.
 ## Example of how to compose higher-order reducers
 
 ```js
-// You can import compose() function from any package, which provide it,
+// You can import compose() function from any package, which provides it,
 // for example from https://github.com/acdlite/recompose
+// or flow()/flowRight() from lodash
 import { compose } from 'wherever';
 import { nullReducer, withPayloadReducer, withResetReducer } from 'redux-reuse';
 
