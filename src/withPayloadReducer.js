@@ -1,4 +1,4 @@
-import { identity } from 'lodash';
+import identity from 'lodash/identity';
 import { extendReducer } from './extendReducer';
 import { nullReducer } from './nullReducer';
 
