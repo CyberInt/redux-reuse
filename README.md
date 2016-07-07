@@ -142,8 +142,8 @@ withPayloadReducer(
 ```
 
 Creates a higher-order reducer which returns the payload of the action
-for the given action type. Before returning it maps result `mapResult` function, which
-is useful when you deal with immutable data structures in your store.
+for the given action type. Before returning it maps the payload with `mapResult`
+function, which is useful when you deal with immutable data structures in your store.
 
 ### Helper Reducers
 
