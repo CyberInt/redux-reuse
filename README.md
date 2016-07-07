@@ -107,13 +107,13 @@ export default combineReducers({
 
 ```js
 withMapStateReducer(
-  mapStateBefore: (stateBefore: any) => newStateBefore,
-  mapStateAfter: (stateAfter: any) => newStateAfter,
-  actionTypes: Array<string>
+  mapStateBefore: ?(stateBefore: any) => newStateBefore,
+  mapStateAfter: ?(stateAfter: any) => newStateAfter,
+  actionTypes: ?Array<string>
 ): (reducer) => reducer
 ```
 
-Creates a second-order reducer which maps state before and after passing
+Creates a higher-order reducer which maps state before and after passing
 to a reducer, but does it only for passed action types.
 
 Useful when you want reuse your reducer on state, which has another format.
@@ -135,11 +135,15 @@ const objectReducer = withMapStateReducer(
 #### `withPayloadReducer()`
 
 ```js
-withPayloadReducer(actionType: String): (reducer) => reducer
+withPayloadReducer(
+  actionType: String,
+  mapResult: ?(resultBefore: any) => resultAfter
+): (reducer) => reducer
 ```
 
-Creates a second-order reducer which returns the payload of the action
-for the given action type.
+Creates a higher-order reducer which returns the payload of the action
+for the given action type. Before returning it maps the payload with `mapResult`
+function, which is useful when you deal with immutable data structures in your store.
 
 ### Helper Reducers
 
