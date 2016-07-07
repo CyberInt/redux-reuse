@@ -107,9 +107,9 @@ export default combineReducers({
 
 ```js
 withMapStateReducer(
-  mapStateBefore: (stateBefore: any) => newStateBefore,
-  mapStateAfter: (stateAfter: any) => newStateAfter,
-  actionTypes: Array<string>
+  mapStateBefore: ?(stateBefore: any) => newStateBefore,
+  mapStateAfter: ?(stateAfter: any) => newStateAfter,
+  actionTypes: ?Array<string>
 ): (reducer) => reducer
 ```
 
