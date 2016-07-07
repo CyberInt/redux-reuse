@@ -135,7 +135,10 @@ const objectReducer = withMapStateReducer(
 #### `withPayloadReducer()`
 
 ```js
-withPayloadReducer(actionType: String, mapResult: ?Function): (reducer) => reducer
+withPayloadReducer(
+  actionType: String,
+  mapResult: ?(resultBefore: any) => resultAfter
+): (reducer) => reducer
 ```
 
 Creates a higher-order reducer which returns the payload of the action
