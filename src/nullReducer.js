@@ -1,6 +1,8 @@
-import { initialReducer } from './initialReducer';
+import initialReducer from './initialReducer';
 
 /**
  * A reducer with null as initial state
  */
-export const nullReducer = initialReducer(null);
+const nullReducer = initialReducer(null);
+
+export default nullReducer;

@@ -65,7 +65,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'extendReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _extendReducer.extendReducer;
+	    return _interopRequireDefault(_extendReducer).default;
 	  }
 	});
 
@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'initialReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _initialReducer.initialReducer;
+	    return _interopRequireDefault(_initialReducer).default;
 	  }
 	});
 
@@ -83,7 +83,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'nullReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _nullReducer.nullReducer;
+	    return _interopRequireDefault(_nullReducer).default;
 	  }
 	});
 
@@ -92,7 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'withActionFilterReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _withActionFilterReducer.withActionFilterReducer;
+	    return _interopRequireDefault(_withActionFilterReducer).default;
 	  }
 	});
 
@@ -101,7 +101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'withMapStateReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _withMapStateReducer.withMapStateReducer;
+	    return _interopRequireDefault(_withMapStateReducer).default;
 	  }
 	});
 
@@ -110,7 +110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'withPayloadReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _withPayloadReducer.withPayloadReducer;
+	    return _interopRequireDefault(_withPayloadReducer).default;
 	  }
 	});
 
@@ -119,9 +119,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, 'withResetReducer', {
 	  enumerable: true,
 	  get: function get() {
-	    return _withResetReducer.withResetReducer;
+	    return _interopRequireDefault(_withResetReducer).default;
 	  }
 	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
 /* 1 */
@@ -140,13 +142,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     (state, action) => newState
 	 * @returns {function} Reducer function
 	 */
-	var extendReducer = exports.extendReducer = function extendReducer(reducer, handlers) {
+	var extendReducer = function extendReducer(reducer, handlers) {
 	  return function (state, action) {
 	    var stateForReducer = handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state;
 
 	    return reducer(stateForReducer, action);
 	  };
 	};
+
+	exports.default = extendReducer;
 
 /***/ },
 /* 2 */
@@ -162,11 +166,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {*} initialState
 	 * @returns {function} Reducer function
 	 */
-	var initialReducer = exports.initialReducer = function initialReducer(initialState) {
+	var initialReducer = function initialReducer(initialState) {
 	  return function (state) {
 	    return typeof state === 'undefined' ? initialState : state;
 	  };
 	};
+
+	exports.default = initialReducer;
 
 /***/ },
 /* 3 */
@@ -177,14 +183,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.nullReducer = undefined;
 
 	var _initialReducer = __webpack_require__(2);
+
+	var _initialReducer2 = _interopRequireDefault(_initialReducer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
 	 * A reducer with null as initial state
 	 */
-	var nullReducer = exports.nullReducer = (0, _initialReducer.initialReducer)(null);
+	var nullReducer = (0, _initialReducer2.default)(null);
+
+	exports.default = nullReducer;
 
 /***/ },
 /* 4 */
@@ -195,9 +206,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.withActionFilterReducer = undefined;
 
 	var _nullReducer = __webpack_require__(3);
+
+	var _nullReducer2 = _interopRequireDefault(_nullReducer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
 	 * Creates a reducer wrapper which tests actions with a predicate before
@@ -207,9 +221,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *   action should be passed to reducer.
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
-	var withActionFilterReducer = exports.withActionFilterReducer = function withActionFilterReducer(predicate) {
+	var withActionFilterReducer = function withActionFilterReducer(predicate) {
 	  return function () {
-	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer.nullReducer : arguments[0];
+	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer2.default : arguments[0];
 	    return function (state, action) {
 	      if (typeof state === 'undefined' || predicate(action)) {
 	        return reducer(state, action);
@@ -220,6 +234,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	};
 
+	exports.default = withActionFilterReducer;
+
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
@@ -229,7 +245,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.withMapStateReducer = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -238,6 +253,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _identity2 = _interopRequireDefault(_identity);
 
 	var _nullReducer = __webpack_require__(3);
+
+	var _nullReducer2 = _interopRequireDefault(_nullReducer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -256,7 +273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *   Action types to perform map state. Handles all actions if not provided.
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
-	var withMapStateReducer = exports.withMapStateReducer = function withMapStateReducer() {
+	var withMapStateReducer = function withMapStateReducer() {
 	  var mapStateBefore = arguments.length <= 0 || arguments[0] === undefined ? _identity2.default : arguments[0];
 	  var mapStateAfter = arguments.length <= 1 || arguments[1] === undefined ? _identity2.default : arguments[1];
 	  var actionTypes = arguments[2];
@@ -266,7 +283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {});
 
 	  return function () {
-	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer.nullReducer : arguments[0];
+	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer2.default : arguments[0];
 	    return function (state, action) {
 	      if (actionTypes && !actionTypesDict[action.type]) {
 	        return reducer(state, action);
@@ -276,6 +293,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  };
 	};
+
+	exports.default = withMapStateReducer;
 
 /***/ },
 /* 6 */
@@ -313,11 +332,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.withPayloadReducer = undefined;
+
+	var _identity = __webpack_require__(6);
+
+	var _identity2 = _interopRequireDefault(_identity);
 
 	var _extendReducer2 = __webpack_require__(1);
 
+	var _extendReducer3 = _interopRequireDefault(_extendReducer2);
+
 	var _nullReducer = __webpack_require__(3);
+
+	var _nullReducer2 = _interopRequireDefault(_nullReducer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -325,19 +353,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Creates a reducer wrapper which return the payload of the action for the
 	 * given action type.
 	 * @param {string} actionType
+	 * @param {function} mapResult - function to be invoked with payload as argument
+	 *   before returning it.
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
-	var withPayloadReducer = exports.withPayloadReducer = function withPayloadReducer(actionType) {
+	var withPayloadReducer = function withPayloadReducer(actionType) {
+	  var mapResult = arguments.length <= 1 || arguments[1] === undefined ? _identity2.default : arguments[1];
 	  return function () {
-	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer.nullReducer : arguments[0];
-	    return (0, _extendReducer2.extendReducer)(reducer, _defineProperty({}, actionType, function (_) {
+	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer2.default : arguments[0];
+	    return (0, _extendReducer3.default)(reducer, _defineProperty({}, actionType, function (_) {
 	      var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
 	      var payload = _ref.payload;
-	      return payload;
+	      return mapResult(payload);
 	    }));
 	  };
 	};
+
+	exports.default = withPayloadReducer;
 
 /***/ },
 /* 8 */
@@ -348,13 +381,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.withResetReducer = exports.actionTypes = undefined;
+	exports.actionTypes = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _extendReducer = __webpack_require__(1);
 
+	var _extendReducer2 = _interopRequireDefault(_extendReducer);
+
 	var _nullReducer = __webpack_require__(3);
+
+	var _nullReducer2 = _interopRequireDefault(_nullReducer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -375,20 +414,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {string[]} actionTypes
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
-	var withResetReducer = exports.withResetReducer = function withResetReducer() {
+	var withResetReducer = function withResetReducer() {
 	  for (var _len = arguments.length, actionTypes = Array(_len), _key = 0; _key < _len; _key++) {
 	    actionTypes[_key] = arguments[_key];
 	  }
 
 	  return function () {
-	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer.nullReducer : arguments[0];
-	    return (0, _extendReducer.extendReducer)(reducer, actionTypes.reduce(function (handlers, actionType) {
+	    var reducer = arguments.length <= 0 || arguments[0] === undefined ? _nullReducer2.default : arguments[0];
+	    return (0, _extendReducer2.default)(reducer, actionTypes.reduce(function (handlers, actionType) {
 	      return _extends({}, handlers, _defineProperty({}, actionType, function () {
 	        return reducer(undefined, { type: actionTypes.RESET });
 	      }));
 	    }, {}));
 	  };
 	};
+
+	exports.default = withResetReducer;
 
 /***/ }
 /******/ ])

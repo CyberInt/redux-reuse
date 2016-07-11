@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-create-reducer';
-import { extendReducer } from 'reduxReuse';
+import { extendReducer } from 'index';
 
 describe('extendReducer()', () => {
   describe('for the returned reducer', () => {

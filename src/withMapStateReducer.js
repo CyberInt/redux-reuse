@@ -1,5 +1,5 @@
 import identity from 'lodash/identity';
-import { nullReducer } from './nullReducer';
+import nullReducer from './nullReducer';
 
 /**
  * Creates a reducer wrapper which maps state before and after passing to a
@@ -14,7 +14,7 @@ import { nullReducer } from './nullReducer';
  *   Action types to perform map state. Handles all actions if not provided.
  * @returns {function} a function of signature (reducer) => newReducer
  */
-export const withMapStateReducer = (
+const withMapStateReducer = (
   mapStateBefore = identity,
   mapStateAfter = identity,
   actionTypes
@@ -31,3 +31,5 @@ export const withMapStateReducer = (
     return mapStateAfter(reducer(mapStateBefore(state), action));
   };
 };
+
+export default withMapStateReducer;

@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-create-reducer';
-import { withResetReducer } from 'reduxReuse';
+import { withResetReducer } from 'index';
 
 describe('Reducers: extenders - withResetReducer', () => {
   const ACTION = 'ACTION';

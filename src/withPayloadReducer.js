@@ -1,6 +1,6 @@
 import identity from 'lodash/identity';
-import { extendReducer } from './extendReducer';
-import { nullReducer } from './nullReducer';
+import extendReducer from './extendReducer';
+import nullReducer from './nullReducer';
 
 /**
  * Creates a reducer wrapper which return the payload of the action for the
@@ -10,7 +10,9 @@ import { nullReducer } from './nullReducer';
  *   before returning it.
  * @returns {function} a function of signature (reducer) => newReducer
  */
-export const withPayloadReducer = (actionType, mapResult = identity) => (reducer = nullReducer) =>
+const withPayloadReducer = (actionType, mapResult = identity) => (reducer = nullReducer) =>
   extendReducer(reducer, {
     [actionType]: (_, { payload } = {}) => mapResult(payload)
   });
+
+export default withPayloadReducer;

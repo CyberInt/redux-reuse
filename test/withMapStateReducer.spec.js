@@ -1,6 +1,6 @@
 import { identity } from 'lodash';
 import { createReducer } from 'redux-create-reducer';
-import { withMapStateReducer as _withMapStateReducer} from 'reduxReuse';
+import { withMapStateReducer as _withMapStateReducer} from 'index';
 
 describe('Reducers: extenders - withMapStateReducer', () => {
   const ACTION = 'ACTION';
