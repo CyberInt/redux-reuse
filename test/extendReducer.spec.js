@@ -2,26 +2,27 @@ import { createReducer } from 'redux-create-reducer';
 import { extendReducer } from 'index';
 
 describe('extendReducer()', () => {
+  const EXTENDER_ACTION_TYPE = 'EXTENDER_ACTION_TYPE';
+  const BASE_REDUCER_ACTION_TYPE = 'BASE_REDUCER_ACTION_TYPE';
+  const COMMON_ACTION_TYPE = 'COMMON_ACTION_TYPE';
+  const RETURN_STATE_FROM_EXTENDER = 'RETURN_STATE_FROM_EXTENDER';
+  const RETURN_STATE_FROM_BASE_REDUCER = 'RETURN_STATE_FROM_BASE_REDUCER';
+  const BASE_REDUCER_INITIAL_STATE = 'BASE_REDUCER_INITIAL_STATE';
+
+  const spyForExtender = jasmine.createSpy().and.returnValue(RETURN_STATE_FROM_EXTENDER);
+  const spyForBaseReducer = jasmine.createSpy().and.returnValue(RETURN_STATE_FROM_BASE_REDUCER);
+  const handlers = {
+    [EXTENDER_ACTION_TYPE]: spyForExtender,
+    [COMMON_ACTION_TYPE]: spyForExtender,
+  };
+  const baseReducer = createReducer(BASE_REDUCER_INITIAL_STATE, {
+    [BASE_REDUCER_ACTION_TYPE]: spyForBaseReducer,
+    [COMMON_ACTION_TYPE]: spyForBaseReducer,
+  });
+
+  const reducer = extendReducer(baseReducer, handlers);
+
   describe('for the returned reducer', () => {
-    const EXTENDER_ACTION_TYPE = 'EXTENDER_ACTION_TYPE';
-    const BASE_REDUCER_ACTION_TYPE = 'BASE_REDUCER_ACTION_TYPE';
-    const COMMON_ACTION_TYPE = 'COMMON_ACTION_TYPE';
-    const RETURN_STATE_FROM_EXTENDER = 'RETURN_STATE_FROM_EXTENDER';
-    const RETURN_STATE_FROM_BASE_REDUCER = 'RETURN_STATE_FROM_BASE_REDUCER';
-    const BASE_REDUCER_INITIAL_STATE = 'BASE_REDUCER_INITIAL_STATE';
-
-    const spyForExtender = jasmine.createSpy().and.returnValue(RETURN_STATE_FROM_EXTENDER);
-    const spyForBaseReducer = jasmine.createSpy().and.returnValue(RETURN_STATE_FROM_BASE_REDUCER);
-    const handlers = {
-      [EXTENDER_ACTION_TYPE]: spyForExtender,
-      [COMMON_ACTION_TYPE]: spyForExtender,
-    };
-    const baseReducer = createReducer(BASE_REDUCER_INITIAL_STATE, {
-      [BASE_REDUCER_ACTION_TYPE]: spyForBaseReducer,
-      [COMMON_ACTION_TYPE]: spyForBaseReducer,
-    });
-
-    const reducer = extendReducer(baseReducer, handlers);
 
     it('handles new action types', () => {
       const state = null;
@@ -53,6 +54,21 @@ describe('extendReducer()', () => {
       expect(
         spyForBaseReducer.calls.mostRecent().args
       ).toEqual([RETURN_STATE_FROM_EXTENDER, action]);
+    });
+  });
+
+  describe('for the returned higher-order reducer when 1 argument is passed', () => {
+    const reducer2 = extendReducer(handlers)(baseReducer);
+
+    it('creates a reducer with the same function', () => {
+      expect(reducer2.toString()).toBe(reducer.toString());
+    });
+
+    it('creates a reducer with the same behavior', () => {
+      const state = null;
+      const action = { type: EXTENDER_ACTION_TYPE };
+
+      expect(reducer2(state, action)).toBe(RETURN_STATE_FROM_EXTENDER);
     });
   });
 });

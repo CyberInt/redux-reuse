@@ -136,18 +136,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	/**
 	 * Extends an existing reducer with additional action type handlers
-	 * @param {function} reducer - a reducer function
 	 * @param {object} handlers - object, where keys are action types
 	 *   to be handled and values is a reducer function with signature:
 	 *     (state, action) => newState
-	 * @returns {function} Reducer function
+	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
-	var extendReducer = function extendReducer(reducer, handlers) {
-	  return function (state, action) {
-	    var stateForReducer = handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state;
+	var _extendReducer = function _extendReducer(handlers) {
+	  return function (reducer) {
+	    return function (state, action) {
+	      var stateForReducer = handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state;
 
-	    return reducer(stateForReducer, action);
+	      return reducer(stateForReducer, action);
+	    };
 	  };
+	};
+
+	var extendReducer = function extendReducer() {
+	  if (arguments.length === 1) {
+	    return _extendReducer(arguments.length <= 0 ? undefined : arguments[0]);
+	  }
+
+	  return _extendReducer(arguments.length <= 1 ? undefined : arguments[1])(arguments.length <= 0 ? undefined : arguments[0]);
 	};
 
 	exports.default = extendReducer;

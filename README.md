@@ -59,6 +59,13 @@ Use the Universal Module Definition (UMD)
 
 ```js
 extendReducer(
+  handlers: {
+    [handlerName: string] => reducer
+  }
+): (reducer) => reducer
+
+// Uncurried
+extendReducer(
   reducer,
   handlers: {
     [handlerName: string] => reducer
