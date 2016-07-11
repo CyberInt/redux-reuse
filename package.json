@@ -2,7 +2,7 @@
   "name": "redux-reuse",
   "version": "0.2.2",
   "description": "Reuse code in redux reducers",
-  "main": "lib/reduxReuse.js",
+  "main": "lib/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run build:commonjs; npm run build:es6; npm run build:umd",
