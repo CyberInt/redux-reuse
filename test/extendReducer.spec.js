@@ -54,5 +54,12 @@ describe('extendReducer()', () => {
         spyForBaseReducer.calls.mostRecent().args
       ).toEqual([RETURN_STATE_FROM_EXTENDER, action]);
     });
+
+    it('returns a higher-order reducer when 1 argument is passed', () => {
+      const state = null;
+      const action = { type: EXTENDER_ACTION_TYPE };
+
+      expect(reducer(state, action)).toBe(RETURN_STATE_FROM_EXTENDER);
+    });
   });
 });
