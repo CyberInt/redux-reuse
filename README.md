@@ -35,6 +35,14 @@ Or import ES2015 modules
 ```javascript
 import { extendReducer } from 'redux-reuse/es6';
 ```
+Use this if you are using [rollup.js](http://rollupjs.org/) or
+[webpack 2](http://webpack.github.io/docs/changelog.html#2-1-x-beta), or any
+ES2015 modules-compatible bundler which can eliminate unused library code with
+[tree-shaking](http://www.2ality.com/2015/12/webpack-tree-shaking.html).
+
+It is recommended to import the library from `redux-reuse/es6` instead of
+`redux-reuse/src` because the source code depends on experimental presets from
+babel (stage 1-3) and may be incompatible with your bundler or settings.
 
 ### Other environments
 
