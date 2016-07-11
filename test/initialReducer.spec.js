@@ -1,4 +1,4 @@
-import { initialReducer } from 'reduxReuse';
+import { initialReducer } from 'index';
 
 describe('initialReducer', () => {
   const STATE = 'STATE';

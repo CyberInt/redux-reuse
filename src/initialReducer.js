@@ -3,5 +3,7 @@
  * @param {*} initialState
  * @returns {function} Reducer function
  */
-export const initialReducer = (initialState) =>
+const initialReducer = (initialState) =>
   (state) => typeof state === 'undefined' ? initialState : state;
+
+export default initialReducer;

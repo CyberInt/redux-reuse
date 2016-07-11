@@ -1,5 +1,5 @@
-import { extendReducer } from './extendReducer';
-import { nullReducer } from './nullReducer';
+import extendReducer from './extendReducer';
+import nullReducer from './nullReducer';
 
 /**
  * These are private action types reserved by redux-reuse.
@@ -18,10 +18,12 @@ export const actionTypes = {
  * @param {string[]} actionTypes
  * @returns {function} a function of signature (reducer) => newReducer
  */
-export const withResetReducer = (...actionTypes) => (reducer = nullReducer) =>
+const withResetReducer = (...actionTypes) => (reducer = nullReducer) =>
   extendReducer(reducer,
     actionTypes.reduce((handlers, actionType) => ({
       ...handlers,
       [actionType]: () => reducer(undefined, { type: actionTypes.RESET }),
     }), {})
   );
+
+export default withResetReducer;

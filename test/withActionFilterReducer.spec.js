@@ -1,4 +1,4 @@
-import { withActionFilterReducer as _withActionFilterReducer } from 'reduxReuse';
+import { withActionFilterReducer as _withActionFilterReducer } from 'index';
 
 describe('Reducers: extenders - withActionFilterReducer', () => {
   it('passes down action to reducer when predicate returns true', () => {

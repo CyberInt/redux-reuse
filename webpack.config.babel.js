@@ -10,7 +10,7 @@ const exclude = [/node_modules/];
 const config = {
   context: srcPath,
 
-  entry: { reduxReuse: 'reduxReuse' },
+  entry: { reduxReuse: 'index' },
 
   output: {
     path: distPath,

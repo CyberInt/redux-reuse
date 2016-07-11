@@ -1,4 +1,4 @@
-import { nullReducer } from './nullReducer';
+import nullReducer from './nullReducer';
 
 /**
  * Creates a reducer wrapper which tests actions with a predicate before
@@ -8,7 +8,7 @@ import { nullReducer } from './nullReducer';
  *   action should be passed to reducer.
  * @returns {function} a function of signature (reducer) => newReducer
  */
-export const withActionFilterReducer = (predicate) => (reducer = nullReducer) =>
+const withActionFilterReducer = (predicate) => (reducer = nullReducer) =>
   (state, action) => {
     if (typeof state === 'undefined' || predicate(action)) {
       return reducer(state, action);
@@ -16,3 +16,5 @@ export const withActionFilterReducer = (predicate) => (reducer = nullReducer) =>
 
     return state;
   };
+
+export default withActionFilterReducer;

@@ -1,4 +1,4 @@
-import { withPayloadReducer } from 'reduxReuse';
+import { withPayloadReducer } from 'index';
 
 describe('withPayloadReducer()', () => {
   const ACTION = 'ACTION';

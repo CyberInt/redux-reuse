@@ -6,10 +6,12 @@
  *     (state, action) => newState
  * @returns {function} Reducer function
  */
-export const extendReducer = (reducer, handlers) => (state, action) => {
+const extendReducer = (reducer, handlers) => (state, action) => {
   const stateForReducer = handlers.hasOwnProperty(action.type)
     ? handlers[action.type](state, action)
     : state;
 
   return reducer(stateForReducer, action);
 };
+
+export default extendReducer;
