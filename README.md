@@ -102,14 +102,14 @@ A reducer which returns `null` as the initial state.
 
 There are at least two approaches how to organize your reducers code as reusable pieces:
 
-1. Create you own reducer for each usecase and use `combineReducers()` helper in order to combine
+- Create you own reducer for each usecase and use `combineReducers()` helper in order to combine
 separate reducers.
 
 This approach has two disadvantages: first of all it will produce deeper state tree, so once
 your application will grow it can lead you to huge selectors, and secondly this way will not
 cover case when you need to manage one piece of state.
 
-2. Split logic to separate maps of handlers, where keys are action types and values are
+- Split logic to separate maps of handlers, where keys are action types and values are
 appropriate reducers, then use `Object.assign(oneReducerMap, anotherReducerMap)` or spread operator
 to combine maps and use their combination in some helpers like `handleActions()` from
 [redux-actions](https://github.com/acdlite/redux-actions) or `createReducer()` from
