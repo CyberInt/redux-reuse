@@ -98,6 +98,28 @@ nullReducer: reducer
 
 A reducer which returns `null` as the initial state.
 
+## Comparison with existent approaches to reuse code in reducers
+
+There are at least two approaches how to organize your reducers code as reusable pieces:
+
+1. Create you own reducer for each usecase and use `combineReducers()` helper in order to combine
+separate reducers.
+
+This approach has two disadvantages: first of all it will produce deeper state tree, so once
+your application will grow it can lead you to huge selectors, and secondly this way will not
+cover case when you need to manage one piece of state.
+
+2. Split logic to separate maps of handlers, where keys are action types and values are
+appropriate reducers, then use `Object.assign(oneReducerMap, anotherReducerMap)` or spread operator
+to combine maps and use their combination in some helpers like `handleActions()` from
+[redux-actions](https://github.com/acdlite/redux-actions) or `createReducer()` from
+[redux-create-reducer](https://github.com/kolodny/redux-create-reducer) to initialize your reducer,
+which will be superset of combined reducer maps.
+
+This approach also has disadvantage: if you have two reducer maps, which should perform some logic on
+same actions, then as result of merging maps, one of them will overwrite another one, so only logic
+from one reducer map will be performed when contradicted action occurs.
+
 ## Example of how to use `extendReducer()` to write your own higher-order reducers.
 
 TBD
