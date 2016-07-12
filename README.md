@@ -33,7 +33,7 @@ import { extendReducer } from 'redux-reuse';
 var reduxReuse = require('redux-reuse');
 ```
 
-Or import ES2015 modules
+#### If you need ES6 module
 ```javascript
 import { extendReducer } from 'redux-reuse/es6';
 ```
