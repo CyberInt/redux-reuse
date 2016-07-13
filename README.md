@@ -115,7 +115,7 @@ which works independently and starts with different numbers.
 ```js
 import { compose, combineReducers } from 'redux';
 import { extendReducer, initialReducer } from 'redux-reuse';
-import { ignoreActions } from 'redux-ignore';
+import { WIDGET1_TICK, WIDGET2_TICK } from 'event-types';
 
 const increment = (actionType) => (reducer) =>
   extendReducer(reducer, {
@@ -150,12 +150,10 @@ imaging we have counter with checkboxes, indicationg what exact functionality sh
 
 ```js
 
-// Modes
-const INCREMENT = 'INCREMENT';
-const SQUARE = 'SQUARE';
-const CHANGE_SIGN = 'CHANGE_SIGN';
+import { extendReducer, initialReducer } from 'redux-reuse';
+import { ADD_MODE, REMOVE_MODE, TICK } from 'event-types';
+import { INCREMENT, SQUARE, CHANGE_SIGN } from 'modes';
 
-// Higher-order reducers
 const increment = (actionType) => (reducer) =>
   extendReducer(reducer, {
     [actionType]: (state) => state + 1
