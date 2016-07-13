@@ -122,4 +122,98 @@ from one reducer map will be performed when contradicted action occurs.
 
 ## Example of how to use `extendReducer()` to write your own higher-order reducers.
 
-TBD
+You can look at ready-to-use higher-order reducers, which has been implemented using
+`extendReducer()` helper:
+- [redux-payload](https://github.com/CyberInt/redux-payload)
+- [redux-reset-reducer](https://github.com/CyberInt/redux-reset-reducer)
+
+And start organizing your reducers code in reusable pieces like in following example.
+
+Lets imagine that we have two separate counters and they should provide different behaviours
+on each tick that occurs. One have should only increment its own by 1 and another one should
+also change sign of a number it holds. And you have two separate widgets with such a counters,
+which works independently and starts with different numbers.
+
+```js
+import { compose, combineReducers } from 'redux';
+import { extendReducer, initialReducer } from 'redux-reuse';
+import { WIDGET1_TICK, WIDGET2_TICK } from 'event-types';
+
+const increment = (actionType) => (reducer) =>
+  extendReducer(reducer, {
+    [actionType]: (state) => state + 1
+  });
+
+const changeSign = (actionType) => (reducer) =>
+  extendReducer(reducer, {
+    [actionType]: (state) => state * (-1)
+  });
+
+const widgetReducer = (tickActionType, startingNumber) =>
+  combineReducers({
+    smoothCounter: increment(tickActionType)(initialReducer(startingNumber)),
+    jumpingCounter: compose(
+      increment(tickActionType),
+      changeSign(tickActionType)
+    )(initialReducer(startingNumber))
+  });
+
+const app = combineReducers({
+  widget1: widgetReducer(WIDGET1_TICK, 0),
+  widget2: widgetReducer(WIDGET2_TICK, 100)
+})
+
+```
+
+As you can see everything is reused! :)
+
+Another interesting example is when you need to plug-in and plug-out some functionality. Lets
+imaging we have counter with checkboxes, indicationg what exact functionality should be turned on.
+
+```js
+
+import { extendReducer, initialReducer } from 'redux-reuse';
+import { PUSH_MODE, POP_MODE, TICK } from 'event-types';
+import { INCREMENT, SQUARE, CHANGE_SIGN } from 'modes';
+
+const increment = (actionType) => (reducer) =>
+  extendReducer(reducer, {
+    [actionType]: (state) => state + 1
+  });
+
+const square = (actionType) => (reducer) =>
+  extendReducer(reducer, {
+    [actionType]: (state) => state * state
+  });
+
+const changeSign = (actionType) => (reducer) =>
+  extendReducer(reducer, {
+    [actionType]: (state) => state * (-1)
+  });
+
+const modesMap = {
+  [INCREMENT]: increment,
+  [SQUARE]: square,
+  [CHANGE_SIGN]: changeSign,
+};
+
+const counter = (state = { modes: [], value: null }, { payload: mode }) => {
+  switch (action.type) {
+    case PUSH_MODE:
+      state.modes.push(mode);
+      break;
+    case POP_MODE:
+      state.modes.pop();
+      break;
+    case TICK:
+      const reducers = state.modes.map((mode) => modesMap[mode]);
+      state.value = compose(...reducers)(initialReducer(0))(state.value, action);
+      break;
+  }
+
+  return state;
+};
+
+```
+
+And again, we can reuse our higher-order reducers everywhere we wish.
