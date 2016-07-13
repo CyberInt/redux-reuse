@@ -151,7 +151,7 @@ imaging we have counter with checkboxes, indicationg what exact functionality sh
 ```js
 
 import { extendReducer, initialReducer } from 'redux-reuse';
-import { ADD_MODE, REMOVE_MODE, TICK } from 'event-types';
+import { PUSH_MODE, POP_MODE, TICK } from 'event-types';
 import { INCREMENT, SQUARE, CHANGE_SIGN } from 'modes';
 
 const increment = (actionType) => (reducer) =>
@@ -175,16 +175,16 @@ const modesMap = {
   [CHANGE_SIGN]: changeSign,
 };
 
-const counter = (state = { modes: {}, value: null }, { payload: mode }) => {
+const counter = (state = { modes: [], value: null }, { payload: mode }) => {
   switch (action.type) {
-    case ADD_MODE:
-      state.modes[mode] = true;
+    case PUSH_MODE:
+      state.modes.push(mode);
       break;
-    case REMOVE_MODE:
-      delete state.modes[mode];
+    case POP_MODE:
+      state.modes.pop();
       break;
     case TICK:
-      const reducers = Object.keys(state.modes).map((mode) => modesMap[mode]);
+      const reducers = state.modes.map((mode) => modesMap[mode]);
       state.value = compose(...reducers)(initialReducer(0))(state.value, action);
       break;
   }
