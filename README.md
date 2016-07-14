@@ -98,9 +98,13 @@ nullReducer: reducer
 
 A reducer which returns `null` as the initial state.
 
-## Comparison with existent approaches to reuse code in reducers
+## Overview of existent approaches to reuse code in reducers
 
-There are at least two approaches how to organize your reducers code as reusable pieces:
+There are several approaches how to organize your reducers code as reusable pieces:
+
+- Organize your common logic in functions and use that functions in you reducers.
+
+Basic approach to reuse pieces of code :)
 
 - Create you own reducer for each usecase and use `combineReducers()` helper in order to combine
 separate reducers.
@@ -119,6 +123,14 @@ which will be superset of combined reducer maps.
 This approach also has disadvantage: if you have two reducer maps, which should perform some logic on
 same actions, then as result of merging maps, one of them will overwrite another one, so only logic
 from one reducer map will be performed when contradicted action occurs.
+
+- Organize common logic in separate reducers, cummulate needed reducers in array and
+reduce them into single reducer via `reduceReducers()` helper from
+[reduce-reducers](https://github.com/acdlite/reduce-reducers).
+
+This approach let you achieve the same result, as `extendReducer()`, but last one is more
+Redux-oriented (like using `handleActions()` or `createReducer()` to create reducers) and 
+it helps to operate in terms of composable higher-order reducers. So choose what you like more :)
 
 ## Example of how to use `extendReducer()` to write your own higher-order reducers.
 
@@ -168,7 +180,7 @@ const app = combineReducers({
 As you can see everything is reused! :)
 
 Another interesting example is when you need to plug-in and plug-out some functionality. Lets
-imaging we have counter with checkboxes, indicationg what exact functionality should be turned on.
+imaging we have counter with checkboxes, indicating what exact functionality should be turned on.
 
 ```js
 
@@ -216,4 +228,8 @@ const counter = (state = { modes: [], value: null }, { payload: mode }) => {
 
 ```
 
-And again, we can reuse our higher-order reducers everywhere we wish.
+And again, we can reuse our higher-order reducers in every place we wish.
+
+## Thanks
+Big thanks to [ilyagelman](https://github.com/ilyagelman) for reviewing and acting as opponent,
+that helped a lot in preparing overview of existent approaches.
