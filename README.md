@@ -5,12 +5,6 @@ which provides `extendReducer()` helper function, which helps to make your reduc
 code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "DRY"), based on approach
 of composable higher-order reducers.
 
-It's very common for different reducers to react in the same way on some actions,
-one of the solutions to achieve code reuse in such a case is to use `combineReducers()` helper,
-but it will lead us to deeper state tree. What we really want is for our reducers to
-apply common logic on the existing state subtree that they manage, and that's it.
-Here is where the `extendReducer()` helper comes into play.
-
 `extendReducer()` allows you to add logic to reducer after it has been created,
 in other words you *extend* reducers.
 Using `extendReducer()` it is pretty simple to write composable higher-order reducers
