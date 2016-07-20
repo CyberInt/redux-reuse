@@ -5,16 +5,16 @@ which provides `extendReducer()` helper function, which helps to make your reduc
 code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself "DRY"), based on approach
 of composable higher-order reducers.
 
-It is very common situation when different reducers should react in same way on some actions,
-one of the solution to achieve code reuse in such a case is to use `combineReducers()` helper,
-but it will lead us to deeper state tree. Actually we just want that our reducers will
-apply common logic on existent state subtree, which they manage, and thats it.
-Here `extendReducer()` helper comes into play.
+It's very common for different reducers to react in the same way on some actions,
+one of the solutions to achieve code reuse in such a case is to use `combineReducers()` helper,
+but it will lead us to deeper state tree. What we really want is for our reducers to
+apply common logic on the existing state subtree that they manage, and that's it.
+Here is where the `extendReducer()` helper comes into play.
 
 `extendReducer()` allows you to add logic to reducer after it has been created,
 in other words you *extend* reducers.
 Using `extendReducer()` it is pretty simple to write composable higher-order reducers
-for your Redux application, in the end of the day most of reducers can be presented as
+for your Redux application, at the end of the day most reducers can be presented as
 composition of higher-order reducers.
 
 ## Usage
@@ -74,13 +74,13 @@ extendReducer(
 ```
 
 Extends a reducer with additional action handlers. It means that new reducer will be returned,
-which wraps original one and once action with one of specified action types occurs,
-appropriate handler will be executed first and result will be passed to original reducer.
+which wraps the original one and once an action with one of specified action types occurs,
+the appropriate handler will be executed first and the result will be passed on to the original reducer.
 
-In other words `extendReducer()` *extends* existent reducer with some logic, which will be performed
+In other words `extendReducer()` *extends* the existent reducer with some logic, which will be performed
 on specified actions. With `extendReducer()` it is pretty easy to write composable
 higher-order reducers which are specific to your application and reuse them in you reducers.
-See below examples how to do it.
+See below examples for how to do it.
 
 ### `initialReducer()`
 
@@ -100,7 +100,7 @@ A reducer which returns `null` as the initial state.
 
 ## Overview of existent approaches to reuse code in reducers
 
-There are several approaches how to organize your reducers code as reusable pieces:
+There are several approaches for how to organize your reducers code as reusable pieces:
 
 - Organize your common logic in functions and use that functions in you reducers.
 
@@ -139,12 +139,12 @@ You can look at ready-to-use higher-order reducers, which has been implemented u
 - [redux-payload](https://github.com/CyberInt/redux-payload)
 - [redux-reset-reducer](https://github.com/CyberInt/redux-reset-reducer)
 
-And start organizing your reducers code in reusable pieces like in following example.
+And start organizing your reducers code in reusable pieces like in the following example:
 
-Lets imagine that we have two separate counters and they should provide different behaviours
-on each tick that occurs. One have should only increment its own by 1 and another one should
+Let's imagine that we have two separate counters and they should provide different behaviours
+on each tick that occurs. One should only increment its own by 1 and the other one should
 also change sign of a number it holds. And you have two separate widgets with such a counters,
-which works independently and starts with different numbers.
+which work independently and start with different numbers.
 
 ```js
 import { compose, combineReducers } from 'redux';
@@ -180,7 +180,7 @@ const app = combineReducers({
 As you can see everything is reused! :)
 
 Another interesting example is when you need to plug-in and plug-out some functionality. Lets
-imaging we have counter with checkboxes, indicating what exact functionality should be turned on.
+imagine we have counter with checkboxes, indicating what exact functionality should be turned on.
 
 ```js
 
@@ -232,4 +232,4 @@ And again, we can reuse our higher-order reducers in every place we wish.
 
 ## Thanks
 Big thanks to [ilyagelman](https://github.com/ilyagelman) for reviewing and acting as opponent,
-that helped a lot in preparing overview of existent approaches.
+which helped a lot in preparing the overview of existent approaches.
