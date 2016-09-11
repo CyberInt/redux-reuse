@@ -55,7 +55,8 @@ Use the Universal Module Definition (UMD)
 extendReducer(
   handlers: {
     [actionType: string] => (state: any, action: Object) => any
-  }
+  },
+  propagate: ?boolean = true
 ): (reducer) => reducer
 
 // Uncurried
@@ -63,13 +64,15 @@ extendReducer(
   reducer,
   handlers: {
     [actionType: string] => (state: any, action: Object) => any
-  }
+  },
+  propagate: ?boolean = true
 ): reducer
 ```
 
 Extends a reducer with additional action handlers. It means that new reducer will be returned,
 which wraps the original one and once an action with one of specified action types occurs,
-the appropriate handler will be executed first and the result will be passed on to the original reducer.
+the appropriate handler will be executed first and then based on `propagate` argument the result
+will or will not be passed on to the original reducer.
 
 In other words `extendReducer()` *extends* the existent reducer with some logic, which will be performed
 on specified actions. With `extendReducer()` it is pretty easy to write composable
@@ -123,7 +126,7 @@ reduce them into single reducer via `reduceReducers()` helper from
 [reduce-reducers](https://github.com/acdlite/reduce-reducers).
 
 This approach let you achieve the same result, as `extendReducer()`, but last one is more
-Redux-oriented (like using `handleActions()` or `createReducer()` to create reducers) and 
+Redux-oriented (like using `handleActions()` or `createReducer()` to create reducers) and
 it helps to operate in terms of composable higher-order reducers. So choose what you like more :)
 
 ## Example of how to use `extendReducer()` to write your own higher-order reducers.
