@@ -93,7 +93,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -103,14 +103,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {object} handlers - object, where keys are action types
 	 *   to be handled and values is a reducer function with signature:
 	 *     (state, action) => newState
+	 * @param {bool} propagate - Whenever or not invoke base reducer after handler execution.
+	 *   If action does not match any handler, then base reducer will be executed always.
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
 	var _extendReducer = function _extendReducer(handlers) {
+	  var propagate = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
 	  return function (reducer) {
 	    return function (state, action) {
-	      var stateForReducer = handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state;
+	      if (handlers.hasOwnProperty(action.type)) {
+	        var newState = handlers[action.type](state, action);
 
-	      return reducer(stateForReducer, action);
+	        return propagate ? reducer(state, action) : newState;
+	      }
+
+	      return reducer(state, action);
 	    };
 	  };
 	};
@@ -120,7 +127,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _extendReducer(arguments.length <= 0 ? undefined : arguments[0]);
 	  }
 
-	  return _extendReducer(arguments.length <= 1 ? undefined : arguments[1])(arguments.length <= 0 ? undefined : arguments[0]);
+	  if (arguments.length === 2) {
+	    if (typeof arg[1] === 'function') {
+	      return _extendReducer(arguments.length <= 0 ? undefined : arguments[0])(arg[1]);
+	    }
+
+	    return _extendReducer(arguments.length <= 0 ? undefined : arguments[0], arg[1]);
+	  }
+
+	  return _extendReducer(arguments.length <= 1 ? undefined : arguments[1], arg[2])(arguments.length <= 0 ? undefined : arguments[0]);
 	};
 
 	exports.default = extendReducer;
