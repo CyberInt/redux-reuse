@@ -103,8 +103,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {object} handlers - object, where keys are action types
 	 *   to be handled and values is a reducer function with signature:
 	 *     (state, action) => newState
-	 * @param {bool} propagate - Whenever or not invoke base reducer after handler execution.
-	 *   If action does not match any handler, then base reducer will be executed always.
+	 * @param {boolean} propagate=true - Whenever or not invoke base reducer after
+	 *   handler execution. If action does not match any handler, then base reducer
+	 *   will be executed always.
 	 * @returns {function} a function of signature (reducer) => newReducer
 	 */
 	var _extendReducer = function _extendReducer(handlers) {
@@ -114,7 +115,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (handlers.hasOwnProperty(action.type)) {
 	        var newState = handlers[action.type](state, action);
 
-	        return propagate ? reducer(state, action) : newState;
+	        return propagate ? reducer(newState, action) : newState;
 	      }
 
 	      return reducer(state, action);
@@ -128,14 +129,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  if (arguments.length === 2) {
-	    if (typeof arg[1] === 'function') {
-	      return _extendReducer(arguments.length <= 0 ? undefined : arguments[0])(arg[1]);
+	    if (typeof (arguments.length <= 0 ? undefined : arguments[0]) === 'function') {
+	      return _extendReducer(arguments.length <= 1 ? undefined : arguments[1])(arguments.length <= 0 ? undefined : arguments[0]);
 	    }
 
-	    return _extendReducer(arguments.length <= 0 ? undefined : arguments[0], arg[1]);
+	    return _extendReducer(arguments.length <= 0 ? undefined : arguments[0], arguments.length <= 1 ? undefined : arguments[1]);
 	  }
 
-	  return _extendReducer(arguments.length <= 1 ? undefined : arguments[1], arg[2])(arguments.length <= 0 ? undefined : arguments[0]);
+	  return _extendReducer(arguments.length <= 1 ? undefined : arguments[1], arguments.length <= 2 ? undefined : arguments[2])(arguments.length <= 0 ? undefined : arguments[0]);
 	};
 
 	exports.default = extendReducer;
