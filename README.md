@@ -127,7 +127,8 @@ reduce them into single reducer via `reduceReducers()` helper from
 
 This approach let you achieve the same result, as `extendReducer()`, but last one is more
 Redux-oriented (like using `handleActions()` or `createReducer()` to create reducers) and
-it helps to operate in terms of composable higher-order reducers. So choose what you like more :)
+it helps to operate in terms of composable higher-order reducers, which means control over
+execution of base reducer. So choose what you need :)
 
 ## Example of how to use `extendReducer()` to write your own higher-order reducers.
 
